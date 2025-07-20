@@ -3,221 +3,211 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Enigma Files</title>
+  <title>Perché & Dubbi</title>
   <!-- Font e Stili -->
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Special+Elite&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* Reset e Base */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    /* Reset */
+    * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      background: #111 url('textures/static.png') repeat;
-      color: #ddd;
-      font-family: 'Roboto Mono', monospace;
-      line-height: 1.6;
-      cursor: url('cursor-eye.png'), auto;
-      overflow-x: hidden;
+      background: #f2f2f2 url('textures/paper-grain.png') repeat;
+      color: #222;
+      font-family: 'Inconsolata', monospace;
+      line-height:1.6;
+      overflow-x:hidden;
+      position:relative;
     }
-    a { color: inherit; text-decoration: none; }
+    a { color: #003f5c; text-decoration:none; }
+    a:hover { text-decoration:underline; }
 
-    /* Scrollbar Personalizzato */
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #111; }
-    ::-webkit-scrollbar-thumb { background: #d32f2f; border-radius: 4px; }
-
-    /* Keyframes */
-    @keyframes glitch {
-      0% { clip: rect(10px, 9999px, 80px, 0); transform: translate(0) skew(0); }
-      20% { clip: rect(50px, 9999px, 100px, 0); transform: translate(-2px, -2px) skew(1deg); }
-      40% { clip: rect(20px, 9999px, 60px, 0); transform: translate(2px, 2px) skew(-1deg); }
-      60% { clip: rect(80px, 9999px, 120px, 0); transform: translate(-1px, 1px) skew(0.5deg); }
-      80% { clip: rect(30px, 9999px, 70px, 0); transform: translate(1px, -1px) skew(-0.5deg); }
-      100% { clip: rect(10px, 9999px, 80px, 0); transform: translate(0) skew(0); }
-    }
-    @keyframes typing {
-      from { width: 0; }
-      to { width: 100%; }
-    }
-    @keyframes blink {
-      0%, 100% { border-color: transparent; }
-      50% { border-color: #d32f2f; }
-    }
-    @keyframes reveal {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Header Distopico */
+    /* Header Ministerial */
     header {
-      background: rgba(20,20,20,0.9);
-      padding: 20px;
-      text-align: center;
-      border-bottom: 3px solid #d32f2f;
+      background: #e0e0e0;
+      padding:30px 0;
+      border-bottom:4px solid #900;
+      text-align:center;
+      position:relative;
+      z-index:2;
     }
     header h1 {
-      font-family: 'Special Elite', cursive;
-      font-size: 3rem;
-      letter-spacing: 8px;
-      color: #fff;
-      animation: glitch 2s infinite;
-      position: relative;
+      font-family:'Cinzel', serif;
+      font-size:3rem;
+      letter-spacing:4px;
+      color:#333;
+      text-transform:uppercase;
     }
-    nav a {
-      margin: 0 15px;
-      font-size: 0.9rem;
-      letter-spacing: 4px;
-      color: #aaa;
-      transition: color 0.3s;
+    header p {
+      font-size:1rem;
+      color:#555;
+      margin-top:5px;
     }
-    nav a:hover { color: #d32f2f; }
-
-    /* Hero con Typewriter */
-    .hero {
-      overflow: hidden;
-      white-space: nowrap;
-      border-right: 4px solid #d32f2f;
-      width: 0;
-      margin: 60px auto;
-      font-family: 'Special Elite', cursive;
-      font-size: 2rem;
-      color: #fff;
-      animation: typing 4s steps(30, end) forwards, blink .7s step-end infinite;
+    header::after {
+      content:'MINISTERO DEL DUBBIO';
+      position:absolute;
+      top:10px; right:20px;
+      padding:5px 10px;
+      font-size:0.7rem;
+      color:#900;
+      border:2px dashed #900;
+      transform:rotate(6deg);
+      opacity:0.6;
     }
 
-    /* Contenuto */
-    .container {
-      max-width: 60ch;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-    #search {
-      width: 100%;
-      padding: 12px;
-      background: #222;
-      border: 2px inset #333;
-      color: #eee;
-      margin-bottom: 30px;
-    }
-    #search::placeholder { color: #555; }
+    .container { max-width:720px; margin:0 auto; padding:0 20px; position:relative; }
 
-    /* Articoli come Fascicoli Animati */
-    .articles { display: flex; flex-direction: column; gap: 30px; }
-    .article {
-      background: rgba(20,20,20,0.9);
-      border: 1px solid #333;
-      padding: 20px;
-      position: relative;
-      opacity: 0;
-      animation: reveal 0.8s forwards;
+    /* Modal Overlay */
+    .modal-bg {
+      display:none;
+      position:fixed;
+      top:0; left:0;
+      width:100%; height:100%;
+      background:rgba(0,0,0,0.7);
+      align-items:center;
+      justify-content:center;
+      z-index:10;
     }
-    .article:nth-child(1) { animation-delay: 0.2s; }
-    .article:nth-child(2) { animation-delay: 0.4s; }
-    .article:nth-child(3) { animation-delay: 0.6s; }
-    .article::before {
-      content: '';
-      position: absolute;
-      top: 15px; right: 15px;
-      width: 60px; height: 60px;
-      background: url('images/stamp-glitch.png') no-repeat center/contain;
-      opacity: 0.1;
-      animation: glitch 3s infinite;
+    .modal {
+      background:#fff;
+      width:90%; max-width:600px;
+      padding:20px;
+      border:2px solid #900;
+      position:relative;
+      font-family:'Inconsolata', monospace;
     }
-    .article-content h2 {
-      font-size: 1.6rem;
-      margin-bottom: 8px;
-      color: #d32f2f;
+    .modal h2 {
+      margin-bottom:10px;
+      color:#900;
     }
-    .meta {
-      font-size: 0.75rem;
-      text-transform: uppercase;
-      color: #777;
-      margin-bottom: 15px;
+    .modal-close {
+      position:absolute;
+      top:10px; right:10px;
+      background:#900;
+      color:#fff;
+      border:none;
+      padding:5px 8px;
+      cursor:pointer;
     }
-    .article-content p { margin-bottom: 20px; text-indent: 1.5em; }
-    .button {
-      padding: 10px 15px;
-      background: #d32f2f;
-      border: none;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      font-size: 0.8rem;
-      cursor: pointer;
-      transition: opacity 0.3s;
-      color: #111;
+    .modal-content {
+      font-size:1rem;
+      line-height:1.6;
+      position:relative;
+      min-height:80px;
     }
-    .button:hover { opacity: 0.8; }
 
-    /* Footer Ufficiale */
+    /* Wave SVG */
+    .wave { position:absolute; width:100%; height:60px; fill:#f2f2f2; }
+    .wave-top { top:-1px; transform:scaleY(-1); }
+    .wave-bottom { bottom:-1px; }
+
     footer {
-      text-align: center;
-      margin: 60px 0;
-      border-top: 1px solid #333;
-      padding-top: 10px;
-      font-size: 0.8rem;
-      color: #666;
+      text-align:center;
+      margin:60px 0 20px;
+      font-size:0.8rem;
+      color:#555;
+      border-top:1px solid #ccc;
+      padding-top:10px;
     }
 
-    /* Audio di sottofondo */
-    audio { display: none; }
+    /* Pulsing highlight */
+    .highlight { animation: pulseHighlight 2s infinite; }
+    @keyframes pulseHighlight {
+      0% { background:rgba(255,200,200,0.3); }
+      50% { background:rgba(255,200,200,0); }
+      100% { background:rgba(255,200,200,0.3); }
+    }
   </style>
 </head>
 <body>
   <header>
-    <h1>ENIGMA FILES</h1>
-    <nav>
-      <a href="#">Home</a>
-      <a href="#">Archivio</a>
-      <a href="#">Chi Siamo</a>
-      <a href="#">Contatti</a>
-    </nav>
+    <h1>Perché & Dubbi</h1>
+    <p>Un bollettino ufficiale per mettere in discussione la verità</p>
   </header>
 
   <div class="container">
-    <div class="hero">UN PASSO NEL LABIRINTO</div>
+    <svg class="wave wave-top" viewBox="0 0 1200 60" preserveAspectRatio="none">
+      <path d="M0,30 C300,-30 900,90 1200,30 L1200,0 L0,0 Z"></path>
+    </svg>
 
-    <input type="text" id="search" placeholder="Digita codice fascicolo...">
+    <div class="prompt">
+      <p>Ricorda: "Il potere si afferma dove l'uomo si arrende al dubbio"</p>
+    </div>
 
+    <svg class="wave wave-bottom" viewBox="0 0 1200 60" preserveAspectRatio="none">
+      <path d="M0,30 C300,90 900,-30 1200,30 L1200,60 L0,60 Z"></path>
+    </svg>
+
+    <!-- Articles -->
     <div class="articles">
-      <div class="article">
-        <div class="article-content">
-          <h2>Il Segreto del Manoscritto Perduto</h2>
-          <div class="meta">15 Luglio 2025</div>
-          <p>Un documento antico riemerge. Tra corridoi inesplorati e occhi che scrutano, verità proibite emergono lentamente.</p>
-          <button class="button">Apri Fascicolo</button>
-        </div>
-      </div>
-
-      <div class="article">
-        <div class="article-content">
-          <h2>Codice 710 - Processo Imminente</h2>
-          <div class="meta">5 Giugno 2025</div>
-          <p>Senza nome, senza volti: un’assemblea oscura decide il destino. La giustizia è un mito fragile.</p>
-          <button class="button">Apri Fascicolo</button>
-        </div>
-      </div>
-
-      <div class="article">
-        <div class="article-content">
-          <h2>Il Controllore Invisibile</h2>
-          <div class="meta">22 Maggio 2025</div>
-          <p>Oltre i muri scuri, un ente sorveglia ogni pensiero. Le ombre sussurrano, il silenzio è assordante.</p>
-          <button class="button">Apri Fascicolo</button>
-        </div>
-      </div>
+      <button class="button" onclick="openModal(0)">Apri Fascicolo 1</button>
+      <button class="button" onclick="openModal(1)">Apri Fascicolo 2</button>
+      <button class="button" onclick="openModal(2)">Apri Fascicolo 3</button>
     </div>
   </div>
 
-  <footer>&copy; 2025 Enigma Files. Tutti i diritti riservati.</footer>
+  <!-- Modal -->
+  <div class="modal-bg" id="modalBg">
+    <div class="modal">
+      <button class="modal-close" onclick="closeModal()">X</button>
+      <h2 id="modalTitle"></h2>
+      <div class="modal-content" id="modalContent"></div>
+    </div>
+  </div>
 
-  <!-- Audio di sottofondo -->
-  <audio src="audio/static-loop.mp3" autoplay loop></audio>
+  <footer>&copy; 2025 Ministero del Dubbio. Tutti i diritti riservati.</footer>
 
   <script>
-    document.getElementById('search').addEventListener('input', function(e) {
-      const filter = e.target.value.toLowerCase();
-      document.querySelectorAll('.article').forEach(article => {
-        article.style.display = article.textContent.toLowerCase().includes(filter) ? 'block' : 'none';
-      });
-    });
+    const articles = [
+      {
+        title: 'Chi scrive le regole di ciò che è vero?',
+        fragments: [
+          'Un\u2019analisi dei comitati segreti e degli organismi occulti...',
+          'Ma cosa accade quando le voci fuori dal coro vengono cancellate?',
+          'E se la verità fosse solo un termine manipolato dal potere?'
+        ]
+      },
+      {
+        title: 'Quando le verità vengono riscritte',
+        fragments: [
+          'Come la storia e i documenti vengono modificati dopo il fatto...',
+          'Chi decide quali pagine restano e quali spariscono?',
+          'Scopri il meccanismo che riscrive il passato.'
+        ]
+      },
+      {
+        title: 'Il condottiero invisibile: chi osserva?',
+        fragments: [
+          'Dalle telecamere alle tecnologie segrete...',
+          'Ogni tuo gesto potrebbe essere monitorato senza avviso.',
+          'Chi detiene davvero il controllo dei tuoi dati?'        ]
+      }
+    ];
+    let intervalId;
+
+    function openModal(index) {
+      const modalBg = document.getElementById('modalBg');
+      const titleEl = document.getElementById('modalTitle');
+      const contentEl = document.getElementById('modalContent');
+      const article = articles[index];
+      titleEl.textContent = article.title;
+      contentEl.textContent = '';
+      modalBg.style.display = 'flex';
+      let i = 0;
+      // Show fragments one by one replacing previous
+      intervalId = setInterval(() => {
+        // highlight and fade
+        contentEl.classList.add('highlight');
+        setTimeout(() => {
+          contentEl.textContent = article.fragments[i];
+          contentEl.classList.remove('highlight');
+          i = (i + 1) % article.fragments.length;
+        }, 500);
+      }, 3000);
+    }
+
+    function closeModal() {
+      document.getElementById('modalBg').style.display = 'none';
+      clearInterval(intervalId);
+    }
   </script>
 </body>
 </html>
