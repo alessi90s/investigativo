@@ -3,211 +3,69 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Perché & Dubbi</title>
-  <!-- Font e Stili -->
-  <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@400;700&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+  <title>Articolo Guidato - Perché & Dubbi</title>
   <style>
-    /* Reset */
+    /* Stili minimalisti */
     * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      background: #f2f2f2 url('textures/paper-grain.png') repeat;
-      color: #222;
-      font-family: 'Inconsolata', monospace;
-      line-height:1.6;
-      overflow-x:hidden;
-      position:relative;
-    }
-    a { color: #003f5c; text-decoration:none; }
-    a:hover { text-decoration:underline; }
-
-    /* Header Ministerial */
-    header {
-      background: #e0e0e0;
-      padding:30px 0;
-      border-bottom:4px solid #900;
-      text-align:center;
-      position:relative;
-      z-index:2;
-    }
-    header h1 {
-      font-family:'Cinzel', serif;
-      font-size:3rem;
-      letter-spacing:4px;
-      color:#333;
-      text-transform:uppercase;
-    }
-    header p {
-      font-size:1rem;
-      color:#555;
-      margin-top:5px;
-    }
-    header::after {
-      content:'MINISTERO DEL DUBBIO';
-      position:absolute;
-      top:10px; right:20px;
-      padding:5px 10px;
-      font-size:0.7rem;
-      color:#900;
-      border:2px dashed #900;
-      transform:rotate(6deg);
-      opacity:0.6;
-    }
-
-    .container { max-width:720px; margin:0 auto; padding:0 20px; position:relative; }
-
-    /* Modal Overlay */
-    .modal-bg {
-      display:none;
-      position:fixed;
-      top:0; left:0;
-      width:100%; height:100%;
-      background:rgba(0,0,0,0.7);
-      align-items:center;
-      justify-content:center;
-      z-index:10;
-    }
-    .modal {
-      background:#fff;
-      width:90%; max-width:600px;
-      padding:20px;
-      border:2px solid #900;
-      position:relative;
-      font-family:'Inconsolata', monospace;
-    }
-    .modal h2 {
-      margin-bottom:10px;
-      color:#900;
-    }
-    .modal-close {
-      position:absolute;
-      top:10px; right:10px;
-      background:#900;
-      color:#fff;
-      border:none;
-      padding:5px 8px;
-      cursor:pointer;
-    }
-    .modal-content {
-      font-size:1rem;
-      line-height:1.6;
-      position:relative;
-      min-height:80px;
-    }
-
-    /* Wave SVG */
-    .wave { position:absolute; width:100%; height:60px; fill:#f2f2f2; }
-    .wave-top { top:-1px; transform:scaleY(-1); }
-    .wave-bottom { bottom:-1px; }
-
-    footer {
-      text-align:center;
-      margin:60px 0 20px;
-      font-size:0.8rem;
-      color:#555;
-      border-top:1px solid #ccc;
-      padding-top:10px;
-    }
-
-    /* Pulsing highlight */
-    .highlight { animation: pulseHighlight 2s infinite; }
-    @keyframes pulseHighlight {
-      0% { background:rgba(255,200,200,0.3); }
-      50% { background:rgba(255,200,200,0); }
-      100% { background:rgba(255,200,200,0.3); }
-    }
+    body { font-family: Arial, sans-serif; background: #fff; color: #111; line-height:1.6; padding:1rem; }
+    header, footer { text-align:center; padding:1rem; }
+    header { border-bottom:1px solid #ddd; }
+    footer { border-top:1px solid #ddd; margin-top:2rem; font-size:0.8rem; color:#555; }
+    main { max-width:700px; margin:2rem auto; }
+    article p { margin-bottom:1.5rem; }
+    .word { cursor:pointer; }
+    .underline { text-decoration: underline 2px #ffea75; }
+    .controls { text-align:center; margin-bottom:1rem; }
+    .controls button { padding:0.5rem 1rem; border:1px solid #333; background:#fff; cursor:pointer; margin:0 0.5rem; }
+    .controls button:disabled { color:#aaa; border-color:#aaa; cursor:not-allowed; }
   </style>
 </head>
 <body>
   <header>
     <h1>Perché & Dubbi</h1>
-    <p>Un bollettino ufficiale per mettere in discussione la verità</p>
+    <p>Articolo guidato: sottoevidenzia solo la parola</p>
   </header>
 
-  <div class="container">
-    <svg class="wave wave-top" viewBox="0 0 1200 60" preserveAspectRatio="none">
-      <path d="M0,30 C300,-30 900,90 1200,30 L1200,0 L0,0 Z"></path>
-    </svg>
-
-    <div class="prompt">
-      <p>Ricorda: "Il potere si afferma dove l'uomo si arrende al dubbio"</p>
+  <main>
+    <div class="controls">
+      <button id="prevBtn">« Precedente</button>
+      <button id="nextBtn">Successivo »</button>
+      <button id="startBtn">Inizia Lettura</button>
     </div>
+    <article id="article">
+      <p>In un mondo dove le informazioni viaggiano <span class="word">istantaneamente</span>, è sempre più difficile distinguere ciò che è certo da ciò che è <span class="word">manipolato</span>.</p>
+      <p>Ogni giorno ci confrontiamo con titoli <span class="word">sensazionalistici</span> e versioni contrastanti degli stessi fatti.</p>
+      <p>Eppure, basta un singolo <span class="word">dettaglio</span> a cambiare completamente la <span class="word">percezione</span> di un evento.</p>
+      <p>Il <span class="word">dubbio</span> diventa allora uno strumento <span class="word">essenziale</span> per il pensiero critico.</p>
+      <p>Seguendo questa lettura <span class="word">guidata</span>, ogni parola chiave sarà sottolineata per aiutarti a riflettere.</p>
+    </article>
+  </main>
 
-    <svg class="wave wave-bottom" viewBox="0 0 1200 60" preserveAspectRatio="none">
-      <path d="M0,30 C300,90 900,-30 1200,30 L1200,60 L0,60 Z"></path>
-    </svg>
-
-    <!-- Articles -->
-    <div class="articles">
-      <button class="button" onclick="openModal(0)">Apri Fascicolo 1</button>
-      <button class="button" onclick="openModal(1)">Apri Fascicolo 2</button>
-      <button class="button" onclick="openModal(2)">Apri Fascicolo 3</button>
-    </div>
-  </div>
-
-  <!-- Modal -->
-  <div class="modal-bg" id="modalBg">
-    <div class="modal">
-      <button class="modal-close" onclick="closeModal()">X</button>
-      <h2 id="modalTitle"></h2>
-      <div class="modal-content" id="modalContent"></div>
-    </div>
-  </div>
-
-  <footer>&copy; 2025 Ministero del Dubbio. Tutti i diritti riservati.</footer>
+  <footer>&copy; 2025 Perché & Dubbi</footer>
 
   <script>
-    const articles = [
-      {
-        title: 'Chi scrive le regole di ciò che è vero?',
-        fragments: [
-          'Un\u2019analisi dei comitati segreti e degli organismi occulti...',
-          'Ma cosa accade quando le voci fuori dal coro vengono cancellate?',
-          'E se la verità fosse solo un termine manipolato dal potere?'
-        ]
-      },
-      {
-        title: 'Quando le verità vengono riscritte',
-        fragments: [
-          'Come la storia e i documenti vengono modificati dopo il fatto...',
-          'Chi decide quali pagine restano e quali spariscono?',
-          'Scopri il meccanismo che riscrive il passato.'
-        ]
-      },
-      {
-        title: 'Il condottiero invisibile: chi osserva?',
-        fragments: [
-          'Dalle telecamere alle tecnologie segrete...',
-          'Ogni tuo gesto potrebbe essere monitorato senza avviso.',
-          'Chi detiene davvero il controllo dei tuoi dati?'        ]
-      }
-    ];
-    let intervalId;
+    const words = Array.from(document.querySelectorAll('.word'));
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const startBtn = document.getElementById('startBtn');
+    let current = -1;
 
-    function openModal(index) {
-      const modalBg = document.getElementById('modalBg');
-      const titleEl = document.getElementById('modalTitle');
-      const contentEl = document.getElementById('modalContent');
-      const article = articles[index];
-      titleEl.textContent = article.title;
-      contentEl.textContent = '';
-      modalBg.style.display = 'flex';
-      let i = 0;
-      // Show fragments one by one replacing previous
-      intervalId = setInterval(() => {
-        // highlight and fade
-        contentEl.classList.add('highlight');
-        setTimeout(() => {
-          contentEl.textContent = article.fragments[i];
-          contentEl.classList.remove('highlight');
-          i = (i + 1) % article.fragments.length;
-        }, 500);
-      }, 3000);
+    function updateButtons() {
+      prevBtn.disabled = current <= 0;
+      nextBtn.disabled = current >= words.length - 1;
     }
 
-    function closeModal() {
-      document.getElementById('modalBg').style.display = 'none';
-      clearInterval(intervalId);
+    function highlightWord(index) {
+      words.forEach((w, i) => w.classList.toggle('underline', i === index));
+      if (index >= 0) words[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+      updateButtons();
     }
+
+    prevBtn.addEventListener('click', () => { if (current > 0) highlightWord(--current); });
+    nextBtn.addEventListener('click', () => { if (current < words.length - 1) highlightWord(++current); });
+    startBtn.addEventListener('click', () => { current = 0; highlightWord(current); });
+
+    updateButtons();
   </script>
 </body>
 </html>
